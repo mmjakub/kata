@@ -12,6 +12,7 @@ Construct an E-R diagram for a car insurance company whose customers own one or 
 </details>
 
 ### 6.2 
+
 Consider a database that includes the entity sets student, course, and section from the university schema and that additionally records the marks that students receive in different exams of different sections.
 
 - Construct an E-R diagram that models exams as entities and uses a ternary relationship as part of the design.
@@ -20,4 +21,27 @@ Consider a database that includes the entity sets student, course, and section f
 <details>
 <summary>Answer</summary>
 <img src="6.2.svg">
+</details>
+
+### 6.3
+
+Design an E-R diagram for keeping track of the scoring statistics of your favorite sports team. You should store the matches played, the scores in each match, the players in each match, and individual player scoring statistics for each match. Summary statistics should be modeled as derived attributes with an explanation as to how they are computed.
+
+<details>
+<summary>Answer</summary>
+<img src="6.3.drawio.svg">
+
+Remarks:
+- Having **team** participate in **goal** relationship may seem redundant, but is required to distinguish own goals 
+
+How dervied attributes are computed in entities:
+- **fixture**: both `home_score` and `away_score` combine `play` and `goal` relationship sets to count goals scored for respective teams
+- **appearance**:
+    - `minutes_played` is computed from `minute_entered` and `minute_left`. This simple model does not account for stoppage time in each half.
+    - `goals_scored` is based on goal relationship set (own goals excluded)
+
+- **player**: all attributes are aggregated over **played_in** relationship using `goals_scored` and `minutes_played` of each **appearance**
+- **team**:
+    - `goals_scored` and `goals_conceded` is derived from **goal**
+    - To compute `avg_match_goals` the number of games is derived from **play**
 </details>
