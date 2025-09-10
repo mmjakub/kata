@@ -1,0 +1,1 @@
+- [sync](sync) - synchronize files in two directories
